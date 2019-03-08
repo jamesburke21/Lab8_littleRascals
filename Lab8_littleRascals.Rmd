@@ -74,17 +74,15 @@ library(maps)
 Olympics <- read.csv("summer.csv")
 #total golds by country
 golds <- Olympics %>% filter(Medal == "Gold") %>% count(Country) %>% arrange(desc(n)) 
-#total gold medals
 medals <- Olympics %>% filter(Medal == "Gold") %>% count(Medal)
 #top medal leaders of summer olympics
 TML <- golds %>% filter(Country == c("USA","URS","GBR"))
-#precentage
 Gpre <- golds %>% mutate((n/10486) * 100) %>% arrange(desc((n/10486) * 100))
 A <- head(Gpre)
 ggplot(data = A)+
   geom_col(aes(x = Country, y = (n/10486) * 100, fill = Country))+
   ylab("Precentage")+
-  ggtitle("The Top Medal Leaders of the Summer Olympics.\n The Precentage of Each Country Winning a Gold Medal.")
+  ggtitle("The Top Medal Leaders of the Summer Olympics\n and their Precentage of Winning a Gold Medal.")
 ```
 ##Matthews Question:
 What is the probability of the top medal leaders winning a gold medal?
