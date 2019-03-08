@@ -46,7 +46,7 @@ The graph shows all states above 27 in the exercise column.
 library(data.table)
 library(tidyverse)
 
-fires <- read_csv("/Users/jamesburke/Documents/Documents - James’s MacBook Pro/Data Science Labs/Lab8_littleRascals/cal-fire-incidents.csv")
+fires <- read_csv("cal-fire-incidents.csv")
 
 fires <- mutate(fires, acres = `ACRES BURNED`/100)
 
