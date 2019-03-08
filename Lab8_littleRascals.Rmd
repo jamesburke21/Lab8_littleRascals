@@ -46,35 +46,24 @@ The graph shows all states above 27 in the exercise column.
 library(data.table)
 library(tidyverse)
 
-fires <- read_csv("Documents/cal-fire-incidents.csv", sep = ",", 
-                   header = T,
-                   na.strings = c("NA", ""),
-                   stringsAsFactors = FALSE)
-fires <- 
-fires
-ggplot(data = fires)+
-  geom_line(mapping = aes(x = "YEAR", y = "NUMBER OF FIRES"))
+fires <- read_csv("/Users/jamesburke/Documents/Documents - James’s MacBook Pro/Data Science Labs/Lab8_littleRascals/cal-fire-incidents.csv")
 
+fires <- mutate(fires, acres = `ACRES BURNED`/100)
+
+ggplot(data = fires)+
+  geom_line(mapping = aes(x = `YEAR`, y = `NUMBER OF FIRES`), color = "red")+
+  geom_line(mapping = aes(x = `YEAR`, y = acres), color = "blue")+
+  ylab("Number of Fires (Red), 100's Acres Burned (Blue)")
+
+```
+```{r}
+fires <- mutate(fires, damage = `DOLLAR DAMAGE`/100000)
+ggplot(data = fires)+
+  geom_line(mapping = aes(x = `YEAR`, y = damage), color = "yellow")+
+  ylab("100,000 Dollars in Damages")
 ```
 ###James Burke Findings
-
-
-```{r}
-library(data.table)
-library(tidyverse)
-
-tuition <- read_csv("us_avg_tuition.csv")
-
-tuition <- tuition %>% select(State,'2004-05', '2014-15')
-library(readr)
-tuition <- tuition %>% mutate(four = parse_number(tuition$'2004-05')) %>%
-  mutate(fourteen = parse_number(tuition$'2014-15'))
-tuition <- tuition %>% select(State,four, fourteen) %>% arrange(desc(four)) %>% mutate(Difference = fourteen-four)
-ggplot(data=tuition)+
-  geom_point(mapping = aes(x=State, y=Difference , color = State))
-
-
-```
+My question was how have the quantity and destruction of the fires in california changed between 1933 and 2016? I thought it was quite relevant due to the extreme fires that occured in california last year. I found that the acres burned peaked around the mid to late 1930s and the number of fires peaked in the 1980s, which would suggest that the fires in claifornia are not getting worse in general. However the graph of the cost of damages shows that in the 2000s and especially the 2010s the cost of damages has skyrocketed. This could be because the fires are closer to societies, which have become more dense as time has gone on.
 
 ###Matthew Copeland's Data
 ```{r}
@@ -101,6 +90,24 @@ ggplot(data = A)+
 What is the probability of the top medal leaders winning a gold medal?
 #Matthew's Findings:
 I looked through a dataset that contained the olympic medal winners from 1896 to 2014 of the summer olympics. After tidying all the data I collected the probability of the top 6 gold medal leaders by dividing the total number of gold medals won by the countries gold medals in the past 118 years. I first sorted my data by getting rid of the rows where they weren't gold medals and had the columns country and medals. Then counted the duplicate countries so the list would drop to 100 countries and the gold medal count were the only columns. 
+
+### Team Data
+```{r}
+library(data.table)
+library(tidyverse)
+
+tuition <- read_csv("us_avg_tuition.csv")
+
+tuition <- tuition %>% select(State,'2004-05', '2014-15')
+library(readr)
+tuition <- tuition %>% mutate(four = parse_number(tuition$'2004-05')) %>%
+  mutate(fourteen = parse_number(tuition$'2014-15'))
+tuition <- tuition %>% select(State,four, fourteen) %>% arrange(desc(four)) %>% mutate(Difference = fourteen-four)
+ggplot(data=tuition)+
+  geom_point(mapping = aes(x=State, y=Difference , color = State))
+
+
+```
 
 ### Team Conclusion
 As you can see from the graph, the difference represents the tuition change between 2004/2005 and 2014/2015. The tuition change is positive for every single state except for one state. Therefore, tuition has increased overall over these ten years. Clearly, we can see that in some places the tuition increased by substantial amounts aswell. 
