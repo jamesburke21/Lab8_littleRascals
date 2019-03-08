@@ -11,7 +11,14 @@ knitr::opts_chunk$set(echo = TRUE)
 library(data.table)
 library(tidyverse)
 ```
-
+###Team Question
+How much has tuition changed over ten years. This is an important question, because seeing how data changes and how much tuition is increasing is an important issue for students. Also, it is essential to see whether tuition is increasing a reasonable amount or not. 
+### Data/Expert
+Here is a link to the data: https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-04-02
+Here is where it originally came from: https://onlinembapage.com/average-tuition-and-educational-attainment-in-the-united-states/
+Kelsey Mckenna is the pretend data expert. This question is important and interesting, because students shouldn't have to pay more than necessary for school. Tuition shouldn't increase more than inflation and if it does there is a problem with the system and action should be taken. Normal college aged students should be able to afford college and not have to pay absurb amounts of money in order to attend. 
+###Kelsey Individual
+Here is a link to the data: https://github.com/rfordatascience/tidytuesday/tree/master/data/2018/2018-04-02
 ```{r}
 
 library(data.table)
@@ -28,13 +35,12 @@ ggplot(data= workout)+
   coord_flip()
 
 ```
-###Kelsey McKenna
+###Kelsey McKenna Findings
 My question is which states were the top states in terms of exercise. 
 I found that Colorado then Idaho are the top states in terms of exercise. 
 The graph shows all states above 27 in the exercise column. 
 
-###Team Question
-How much has tuition changed over ten years. This is an important question, because seeing how data changes and how much tuition is increasing is an important issue for students. Also, it is essential to see whether tuition is increasing a reasonable amount or not. 
+
 ```{r}
 library(data.table)
 library(tidyverse)
@@ -42,14 +48,21 @@ library(tidyverse)
 tuition <- read_csv("us_avg_tuition.csv")
 
 tuition <- tuition %>% select(State,'2004-05', '2014-15')
-tuition
+library(readr)
+tuition <- tuition %>% mutate(four = parse_number(tuition$'2004-05')) %>%
+  mutate(fourteen = parse_number(tuition$'2014-15'))
+tuition <- tuition %>% select(State,four, fourteen) %>% arrange(desc(four)) %>% mutate(Difference = fourteen-four)
 ggplot(data=tuition)+
-
+  geom_point(mapping = aes(x=State, y=Difference , color = State))
 
 
 ```
+### Team Conclusion
+As you can see from the graph, the difference represents the tuition change between 2004/2005 and 2014/2015. The tuition change is positive for every single state except for one state. Therefore, tuition has increased overall over these ten years. Clearly, we can see that in some places the tuition increased by substantial amounts aswell. 
+### Team Recommendation
+Our recommendation is that the US government put measures in place to assist students more in tuition or rules that could maybe apply to state schools in order to mitigate college costs. Otherwise a college education would continue to get more and more expensive. 
 
 ###Team Summary
 Kelsey McKenna
-I uploaded the data in the form of csv instead of an excell file. I used the filter, select, and arrange functions in order to help answer my specific question. The data was pretty tidy already. The only problem was it had too many useless columns including a column of data with work status which wasn't useful. I also used header= T, na.strings, and stringsasFactors in order to tidy it further. 
+I uploaded the data in the form of csv instead of an excell file. I used the filter, select, and arrange functions in order to help answer my specific question. The data was pretty tidy already. The only problem was it had too many useless columns including a column of data with work status which wasn't useful. I also used header= T, na.strings, and stringsasFactors in order to tidy it further. I dealt with the team data. 
 
