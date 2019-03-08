@@ -46,7 +46,8 @@ The graph shows all states above 27 in the exercise column.
 library(data.table)
 library(tidyverse)
 
-fires <- read_csv("cal-fire-incidents.csv")
+fires <- read_csv("/Users/jamesburke/Documents/Documents - James’s MacBook Pro/Data Science Labs/Lab8_littleRascals/cal-fire-incidents.csv")
+fires <- as.tibble(fires)
 
 fires <- mutate(fires, acres = `ACRES BURNED`/100)
 
@@ -116,3 +117,5 @@ Our recommendation is that the US government put measures in place to assist stu
 Kelsey McKenna
 I uploaded the data in the form of csv instead of an excell file. I used the filter, select, and arrange functions in order to help answer my specific question. The data was pretty tidy already. The only problem was it had too many useless columns including a column of data with work status which wasn't useful. I also used header= T, na.strings, and stringsasFactors in order to tidy it further. I dealt with the team data. 
 
+James Burke
+I used read_csv() to read from the csv data file I downloaded about california fires. I did not have to tidy the data because every column had its own variable, every row had its own observation, every cell had its own value. I then made sure it was ina tibble by using as.tibble(). I plotted the number fires and the acres burned against the years on the same graph, so I can see how they fluctuated. I had to mutate the acres burned, by dividing it by 100 so it fit with similat y values, with number of fires. I would have added cost of damages to this graph but because its y values were so different it did not fit well.  
