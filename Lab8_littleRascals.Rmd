@@ -40,6 +40,24 @@ My question is which states were the top states in terms of exercise.
 I found that Colorado then Idaho are the top states in terms of exercise. 
 The graph shows all states above 27 in the exercise column. 
 
+###James Burke Individual
+```{r}
+
+library(data.table)
+library(tidyverse)
+
+fires <- read_csv("Documents/cal-fire-incidents.csv", sep = ",", 
+                   header = T,
+                   na.strings = c("NA", ""),
+                   stringsAsFactors = FALSE)
+fires <- 
+fires
+ggplot(data = fires)+
+  geom_line(mapping = aes(x = "YEAR", y = "NUMBER OF FIRES"))
+
+```
+###James Burke Findings
+
 
 ```{r}
 library(data.table)
