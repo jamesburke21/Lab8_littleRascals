@@ -75,6 +75,33 @@ ggplot(data=tuition)+
 
 
 ```
+
+###Matthew Copeland's Data
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(maps)
+Olympics <- read.csv("summer.csv")
+#total golds by country
+golds <- Olympics %>% filter(Medal == "Gold") %>% count(Country) %>% arrange(desc(n)) 
+#total gold medals
+medals <- Olympics %>% filter(Medal == "Gold") %>% count(Medal)
+#top medal leaders of summer olympics
+TML <- golds %>% filter(Country == c("USA","URS","GBR"))
+#precentage
+Gpre <- golds %>% mutate((n/10486) * 100) %>% arrange(desc((n/10486) * 100))
+A <- head(Gpre)
+ggplot(data = A)+
+  geom_col(aes(x = Country, y = (n/10486) * 100, fill = Country))+
+  ylab("Precentage")+
+  ggtitle("The Top Medal Leaders of the Summer Olympics.\n The Precentage of Each Country Winning a Gold Medal.")
+```
+##Matthews Question:
+What is the probability of the top medal leaders winning a gold medal?
+#Matthew's Findings:
+I looked through a dataset that contained the olympic medal winners from 1896 to 2014 of the summer olympics. After tidying all the data I collected the probability of the top 6 gold medal leaders by dividing the total number of gold medals won by the countries gold medals in the past 118 years. I first sorted my data by getting rid of the rows where they weren't gold medals and had the columns country and medals. Then counted the duplicate countries so the list would drop to 100 countries and the gold medal count were the only columns. 
+
 ### Team Conclusion
 As you can see from the graph, the difference represents the tuition change between 2004/2005 and 2014/2015. The tuition change is positive for every single state except for one state. Therefore, tuition has increased overall over these ten years. Clearly, we can see that in some places the tuition increased by substantial amounts aswell. 
 ### Team Recommendation
