@@ -40,6 +40,30 @@ My question is which states were the top states in terms of exercise.
 I found that Colorado then Idaho are the top states in terms of exercise. 
 The graph shows all states above 27 in the exercise column. 
 
+### Shreeya Individual
+```{r}
+library(tidyverse)
+library(DALEX2)
+
+crime<-read_csv("crime_data_csv.csv", col_names = TRUE, skip = 3) 
+crime_rates <-select(crime,Year, contains("rate")) %>%
+  filter(!is.na(Year))%>%
+  filter(row_number() <21) 
+crime_rates[5,1]<- 2001 #fixed year name
+crime_rates[19,1]<- 2015
+tidy_crime_rates <- gather(crime_rates, contains("rate"), key = "type", value = "rate")
+
+library(ggplot2)
+crime_rates <- filter(tidy_crime_rates, Year >=2012 & Year <=2016) 
+ggplot(crime_rates, aes(x = Year, y = rate)) + 
+  geom_col(aes(fill = type)) 
+```
+###Shreeya Findings
+Question: How do different crimes compare by rate? Does the change in definition for rape crimes affect the rates of these crimes from 2013 to 2016? How do the rate of violent crimes compare to nonviolent crime?
+
+Findings: The amount of nonviolent crimes far outweigh the amount of violent crimes. In addition, the most common violent crime is aggravated assault. The revised definition of rape is a much higher rate than the legacy definition, which indicates that the revised definition is broader than the legacy definition. The average rate for the legacy definition is about 27 percent, which is much lower than the 37 percent for the revised definition. 
+
+
 ###James Burke Individual
 ```{r}
 
@@ -119,3 +143,6 @@ I uploaded the data in the form of csv instead of an excell file. I used the fil
 
 James Burke
 I used read_csv() to read from the csv data file I downloaded about california fires. I did not have to tidy the data because every column had its own variable, every row had its own observation, every cell had its own value. I then made sure it was ina tibble by using as.tibble(). I plotted the number fires and the acres burned against the years on the same graph, so I can see how they fluctuated. I had to mutate the acres burned, by dividing it by 100 so it fit with similat y values, with number of fires. I would have added cost of damages to this graph but because its y values were so different it did not fit well.  
+
+Shreeya 
+First, I imported the data in excel file as a csv file. I tidied the data by fixing the headers, getting rid of the grouping marks and NAs and then reorganizing the format of the table into a tidy version with only year, rate and type variables. Finally, I filtered the table to only the years 2012-2016 to get a view of crime rates over a short amount of time and to be able to compare the revised and legacy definitions of rape. I did all this using select to get rid of junk and only focus on the important, column header is equal to true to fix the header and then gather to gather up the columns so only one variable is present in each column. 
